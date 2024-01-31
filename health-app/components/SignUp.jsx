@@ -5,12 +5,16 @@ import React, { useState } from 'react';
 const SignUpSheet = () => {
     const [formData, setFormData] = useState({
       name: '',
-      age: '',
-      weight: '',
-      weightUnit: 'kg', 
-      height: '',
-      heightUnit: 'inch',
-      gender: '',
+    age: 1,
+    weight: 0,
+    weightUnit: 'kg',
+    height: 0,
+    heightUnit: 'cm',
+    gender: 'male',
+    username: '',
+    password: '',
+    goal: 'lose',
+    weightIncrement: '1',
     });
     const [submitted, setSubmitted] = useState(false);
 
@@ -22,12 +26,29 @@ const SignUpSheet = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here, e.g., send data to the server
 
-    // Hide the component after submission
-    setSubmitted(true);
+    try {
+      // Make an HTTP POST request to your backend API
+      const response = await fetch('http://localhost:3001/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        // User registration successful
+        setSubmitted(true);
+      } else {
+        // Handle errors, show an alert, etc.
+        console.error('User registration failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   if (submitted) {
@@ -35,7 +56,14 @@ const SignUpSheet = () => {
   }
 
   return (
-    <div className='container center mx-auto mt-8 w-screen bg-blue-200 bg-opacity-50 rounded-md p-4 text-white'>
+    <div className='container mx-auto mt-8 bg-blue-400 bg-opacity-50 rounded-md p-4 text-white'>
+
+      <div className='mb-4 text-center text-xl font-bold'>
+      <h3>Sign Up</h3>
+      </div>
+
+      <hr className='my-4 border-white' />
+
       <form className='max-w-md mx-auto' onSubmit={handleSubmit}>
         <div className='mb-4 text-center'>
           <label htmlFor='name' className='block text-sm font-bold mb-2'>
@@ -76,7 +104,7 @@ const SignUpSheet = () => {
           <label htmlFor='weight' className='text-sm font-bold mb-2'>
             Weight
           </label>
-          <div className='flex items-center'>
+          <div className='flex items-center justify-center'>
             <input
               type='number'
               step='0.1'
@@ -95,8 +123,8 @@ const SignUpSheet = () => {
               value={formData.weightUnit}
               onChange={handleChange}
             >
-              <option value='kg'>kg</option>
-              <option value='lbs'>lbs</option>
+              <option value='kg'>KG</option>
+              <option value='lbs'>LBS</option>
             </select>
           </div>
         </div>
@@ -105,7 +133,7 @@ const SignUpSheet = () => {
           <label htmlFor='height' className='text-sm font-bold mb-2'>
             Height
           </label>
-          <div className='flex items-center'>
+          <div className='flex items-center justify-center'>
             <input
               type='number'
               id='height'
@@ -123,7 +151,7 @@ const SignUpSheet = () => {
               value={formData.heightUnit}
               onChange={handleChange}
             >
-              <option value='inch'>Inch</option>
+              <option value='inch'>INCH</option>
               <option value='cm'>CM</option>
             </select>
           </div>
@@ -147,9 +175,70 @@ const SignUpSheet = () => {
         </div>
 
         <div className='mb-4 text-center'>
+          <label className='text-sm font-bold mb-2'>Weight Goal</label>
+          <div className='flex items-center justify-center'>
+
+          <input
+              type='radio'
+              id='loseWeight'
+              name='weightGoal'
+              value='lose'
+              checked={formData.weightGoal === 'lose'}
+              onChange={handleChange}
+            />
+            <label htmlFor='loseWeight' className='mr-4 text-black'>Lose Weight</label>
+            
+            <input
+              type='radio'
+              id='gainWeight'
+              name='weightGoal'
+              value='gain'
+              checked={formData.weightGoal === 'gain'}
+              onChange={handleChange}
+              className='mr-2'
+            />
+            <label htmlFor='gainWeight' className='text-black'>Gain Weight</label>
+          </div>
+        </div>
+        
+        <hr className='my-4 border-white' />
+
+        <div className='mb-4 text-center'>
+          <label htmlFor='username' className='block text-sm font-bold mb-2'>
+            Username
+          </label>
+          <input
+            type='text'
+            id='username'
+            name='username'
+            className='input-field bg-black p-2 rounded-md w-full'
+            value={formData.username}
+            onChange={handleChange}
+            placeholder='Username'
+          />
+        </div>
+
+        <div className='mb-4 text-center'>
+          <label htmlFor='password' className='block text-sm font-bold mb-2'>
+            Password
+          </label>
+          <input
+            type='password'
+            id='password'
+            name='password'
+            className='input-field bg-black p-2 rounded-md w-full'
+            value={formData.password}
+            onChange={handleChange}
+            placeholder='Password'
+          />
+        </div>
+
+        <hr className='my-4 border-white' />
+
+        <div className='mb-4 text-center'>
           <button
             type='submit'
-            className='bg-white text-black py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+            className='bg-white text-red-400 py-2 px-4 rounded focus:outline-none focus:shadow-outline'
           >
             Submit
           </button>
