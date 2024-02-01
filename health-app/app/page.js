@@ -6,7 +6,9 @@ import SignUp from '@/components/SignUp';
 import AddExercise from '@/components/AddExercise'; 
 import AddFood from '@/components/AddFood';
 import Login from '@/components/Login'
-import UserInfo from '@/components/UserInfo';
+import UserTable from '@/components/UserTable';
+import FoodTable from '@/components/FoodTable';
+import ExerciseTable from '@/components/ExerciseTable';
 
 export default function Home() {
   const [token, setToken] = useState(null)
@@ -14,6 +16,7 @@ export default function Home() {
 
 useEffect(() => {
   const token = localStorage.getItem('token');
+  console.log(token)
   if (token){
     setToken(token)
   }
@@ -27,6 +30,7 @@ const login = (token) => {
 const logout = () => {
   localStorage.removeItem("token")
   setToken(null)
+  console.log("Function called")
 }
   return (
     <main>
@@ -34,17 +38,26 @@ const logout = () => {
       {
         token ? (
           <div>
-            <MainPage client={client} /> 
+            <MainPage client={client} loggedOut={() => logout()}/> 
+            <UserTable client={client} />
+
+      <ExerciseTable client={client} />
+
+      <FoodTable client={client} />
+      
+      
           </div>
         ) : (
+          <div>
           <Login loggedIn={(token) => login(token)} client={client}/>
+
+          <SignUp client={client}/>
+          </div>
         
         )
       }
+
       
-      <SignUp client={client}/>
-
-
 
       
     </main>

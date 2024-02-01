@@ -49,6 +49,21 @@ app.post("/auth", async (req, res) => {
   }
 });
 
+// register new user
+app.post("/", async (req, res) => {
+  try {
+    const userData = req.body;
+    const newUser = new User(userData);
+    await newUser.save();
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Authorization middleware
 app.use(async (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -61,51 +76,88 @@ app.use(async (req, res, next) => {
 });
 
 // defining CRUD operations
-app.get("/", async (req, res) => {
+app.get("/exercise", async (req, res) => {
+  try {
+    console.log("Function being called")
   res.send(await Exercise.find());
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.get("/food", async (req, res) => {
-  res.send(await Food.find());
+  try {
+    res.send(await Food.find());
+  } catch (error) {
+    console.log(error)
+  }
 });
 
-app.get("/", async (req, res) => {
-  res.send(await User.find());
+app.get("/user/:id", async (req, res) => {
+  try {
+    res.send(await User.find());
+  } catch (error) {
+    connsole.log(error)
+  }
 });
 
-app.post("/", async (req, res) => {
-  const newExercise = req.body;
-  const exercise = new Exercise(newExercise);
-  await exercise.save();
-  res.send({ message: "New exercise inserted." });
+app.post("/exercise", async (req, res) => {
+  try {
+    const newExercise = req.body;
+    const exercise = new Exercise(newExercise);
+    await exercise.save();
+    res.send({ message: "New exercise inserted." });
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.post("/food", async (req, res) => {
-  const newFood = req.body;
+  try {
+    const newFood = req.body;
   const food = new Food(newFood);
   await food.save();
   res.send({ message: "New food inserted." });
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 
-app.delete("/:id", async (req, res) => {
-  await Exercise.findByIdAndDelete(req.params.id);
+app.delete("/exercise/:id", async (req, res) => {
+  try {
+    await Exercise.findByIdAndDelete(req.params.id);
   res.send({ message: "Exercise removed." });
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.delete("/food/:id", async (req, res) => {
-  await Food.findByIdAndDelete(req.params.id);
+  try {
+    await Food.findByIdAndDelete(req.params.id);
   res.send({ message: "Food removed." });
+  } catch (error) {
+    console.log(error)
+  }
 });
 
-app.put("/:id", async (req, res) => {
-  await Exercise.findByIdAndUpdate(req.params.id, req.body);
+app.put("/exercise/:id", async (req, res) => {
+  try {
+    await Exercise.findByIdAndUpdate(req.params.id, req.body);
   res.send({ message: "Exercise updated." });
+  } catch (error) {
+    console.log(error) 
+  }
 });
 
 app.put("/food/:id", async (req, res) => {
-  await Food.findByIdAndUpdate(req.params.id, req.body);
+  try{
+    await Food.findByIdAndUpdate(req.params.id, req.body);
   res.send({ message: "Food updated." });
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.listen(3001, () => {

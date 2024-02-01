@@ -11,10 +11,12 @@ const Login = (props) => {
             setDisabled(false); 
             props.loggedIn(response.data.token);
         }).catch((err) => {
+            console.error("An error occurred:", err);
             alert("an error occured.") 
             setDisabled(false); 
         })
     }
+    
   return (
     <div className='bg-blue-200'>
         Login

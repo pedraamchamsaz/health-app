@@ -31,19 +31,19 @@ export class ApiClient {
     }
 
     getExercise() {
-        return this.authenticatedCall("get", url);
+        return this.authenticatedCall("get", exerciseUrl);
       }
     
       addExercise(exercise, date, duration, calories) {
-        return this.authenticatedCall("post", url, { exercise, date, duration, calories });
+        return this.authenticatedCall("post", exerciseUrl, { exercise, date, duration, calories });
       }
     
       addUser(username, password, name, age, weight, height, gender, goal) {
         return this.authenticatedCall("post", userUrl, { username, password, name, age, weight, height, gender, goal });
       }
 
-      getUser() {
-        return this.authenticatedCall("get", userUrl)
+      getUser(id) {
+        return this.authenticatedCall("get", `${userUrl}{id}`, { id })
       }
     
       getFood() {
@@ -55,18 +55,18 @@ export class ApiClient {
       }
     
       removeExercise(id) {
-        return this.authenticatedCall("delete", `${url}${id}`); 
+        return this.authenticatedCall("delete", `${exerciseUrl}${id}`); 
       }
 
       removeFood(id) {
-        return this.authenticatedCall("delete", `${url}${id}`);
+        return this.authenticatedCall("delete", `${foodUrl}${id}`);
       }
     
       updateExercise(id, exercise, date, duration, calories) {
-        return this.authenticatedCall("put", `${url}${id}`, { exercise, date, duration, calories });
+        return this.authenticatedCall("put", `${exerciseUrl}${id}`, { exercise, date, duration, calories });
       }
       updateFood(id, food, date, calories) {
-        return this.authenticatedCall("put", `${url}${id}`, { food, calories });
+        return this.authenticatedCall("put", `${foodUrl}${id}`, { food, date, calories });
       }
     
       async login(username, password) {

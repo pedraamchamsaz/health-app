@@ -39,15 +39,15 @@ const AddFood = (props) => {
     <form onSubmit={submitHandler} id="foodForm" className='flex flex-col'>
 
     <label for='date' className='text-white font-bold cursor-pointer'>Date:</label> 
-    <input type="date" id='date' name='date' min='2024-01-01' max='2029-01-31' className='bg-black text-white rounded-md p-2 m-2'></input>
+    <input defaultValue={props.currentFood?.date} type="date" id='date' name='date' min='2024-01-01' max='2029-01-31' className='bg-black text-white rounded-md p-2 m-2'></input>
 
     <label for='food' className='text-white font-bold'>Food:</label> 
-    <input type="text" name="food" placeholder="Fish and Chips" className='bg-black text-white rounded-md p-2 m-2'></input>
+    <input defaultValue={props.currentFood?.food} type="text" name="food" placeholder="Fish and Chips" className='bg-black text-white rounded-md p-2 m-2'></input>
 
      <label for='calories' className='text-white font-bold'>Calories:</label> 
-    <input type="text" name="calories" className='bg-black text-white rounded-md p-2 m-2'></input>
+    <input defaultValue={props.currentFood?.calories} type="text" name="calories" className='bg-black text-white rounded-md p-2 m-2'></input>
 
-    <button type="submit" className='bg-black text-white font-bold rounded-md p-2 m-2'>Add</button>
+    <button type="submit" className='bg-black text-white font-bold rounded-md p-2 m-2'>{props.currentFood ? "Update" : "Add"}</button>
     </form>
   
 </div>
