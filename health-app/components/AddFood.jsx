@@ -33,7 +33,7 @@ const AddFood = (props) => {
 }
 
   return (
-    <div className='container mx-auto bg-blue-200 flex flex-col mt-10 mb-20 justify-center items-center w-3/4 rounded-md'>
+    <div className='container mx-auto bg-blue-200 flex flex-col mt-10 mb-20 justify-center items-center w-3/4 rounded-md bg-opacity-50'>
     <h2 className='text-white font-bold'>Add Food</h2>
 
     <form onSubmit={submitHandler} id="foodForm" className='flex flex-col'>

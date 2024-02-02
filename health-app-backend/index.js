@@ -94,10 +94,17 @@ app.get("/food", async (req, res) => {
 });
 
 app.get("/user/:id", async (req, res) => {
+  console.log("Function being called")
+  // it is called id here but its actually the token
+
+
+  console.log(req.params.id)
   try {
-    res.send(await User.find());
+    res.send(await User.find({
+      token: req.params.id
+    }));
   } catch (error) {
-    connsole.log(error)
+    console.log(error)
   }
 });
 

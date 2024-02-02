@@ -34,7 +34,7 @@ const AddExercise = (props) => {
 }
 
   return (
-    <div className='container mx-auto bg-blue-200 flex flex-col mt-10 mb-20 justify-center items-center w-3/4 rounded-md'>
+    <div className='container mx-auto bg-blue-200 flex flex-col mt-10 mb-20 justify-center items-center w-3/4 rounded-md bg-opacity-50'>
     <h2 className='text-white font-bold'>Add Exercise</h2>
 
     <form onSubmit={submitHandler} id="exerciseForm" className='flex flex-col'>
@@ -46,7 +46,7 @@ const AddExercise = (props) => {
     <input type="text" name="exercise" placeholder="Running" className='bg-black text-white rounded-md p-2 m-2' defaultValue={props.currentExercise?.exercise}></input>
 
     <label for='duration' className='text-white font-bold'>Duration:</label>
-     <input type='number' name='duration' step={5} min={5} max={80} className='bg-black text-white rounded-md p-2 m-2' defaultValue={props.currentExercise?.duration}></input>
+     <input type='number' name='duration' step={1} min={1} className='bg-black text-white rounded-md p-2 m-2' defaultValue={props.currentExercise?.duration}></input>
 
      <label for='calories' className='text-white font-bold'>Calories Burnt:</label> 
     <input type="text" name="calories" className='bg-black text-white rounded-md p-2 m-2' defaultValue={props.currentExercise?.calories}></input>

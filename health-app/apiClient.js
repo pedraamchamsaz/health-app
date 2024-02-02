@@ -43,8 +43,17 @@ export class ApiClient {
       }
 
       getUser(id) {
-        return this.authenticatedCall("get", `${userUrl}{id}`, { id })
+        return this.authenticatedCall("get", `${userUrl}${id}`, { id })
+          .then(response => {
+            console.log("getUser response:", response.data);
+            return response.data;
+          })
+          .catch(error => {
+            console.error("getUser error:", error);
+            throw error;
+          });
       }
+      
     
       getFood() {
         return this.authenticatedCall("get", foodUrl)

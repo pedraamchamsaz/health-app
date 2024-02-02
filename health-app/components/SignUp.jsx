@@ -56,11 +56,14 @@ const SignUpSheet = () => {
   }
 
   return (
-    <div className='container mx-auto mt-8 bg-blue-400 bg-opacity-50 rounded-md p-4 text-white'>
+    <div className='container mx-auto mt-10 bg-blue-400 bg-opacity-50 rounded-md p-4 text-white font-bold w-3/4 mb-10'>
 
       <div className='mb-4 text-center text-xl font-bold'>
       <h3>Sign Up</h3>
       </div>
+      <div className='flex justify-center items-center'>
+        <span className='text-red-500 animate-pulse'>&#10084;</span>
+        </div>
 
       <hr className='my-4 border-white' />
 
@@ -186,7 +189,7 @@ const SignUpSheet = () => {
               checked={formData.weightGoal === 'lose'}
               onChange={handleChange}
             />
-            <label htmlFor='loseWeight' className='mr-4 text-black'>Lose Weight</label>
+            <label htmlFor='loseWeight' className='mr-4 text-white font-bold'>Lose Weight</label>
             
             <input
               type='radio'
@@ -197,7 +200,7 @@ const SignUpSheet = () => {
               onChange={handleChange}
               className='mr-2'
             />
-            <label htmlFor='gainWeight' className='text-black'>Gain Weight</label>
+            <label htmlFor='gainWeight' className='text-white font-bold'>Gain Weight</label>
           </div>
         </div>
         

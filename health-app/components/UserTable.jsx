@@ -1,44 +1,59 @@
 import React, { useState, useEffect } from 'react';
 
 const UserTable = (props) => {
-    const [users, setUsers] = useState([]);
-
-    const refreshUsers = () => {
-        props.client.getUser().then((response) => {
-            setUsers(response.data);
-        });
-    };
+    const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        refreshUsers();
-    }, []);
+         console.log('props.currentUser', props.currentUser);
+        setCurrentUser(props.currentUser);
+    }, [props.currentUser]);
+
+    const refreshUser = () => {
+        // Assuming you have a user ID available in props or state
+        const userId = props.currentUser; // Replace with your actual user ID retrieval logic
+
+        if (userId) {
+            props.client.getUser(currentUser._id).then((response) => {
+                setCurrentUser(response.data);
+            });
+        }
+    };
+
+
+  
+    useEffect(() => {
+        refreshUser()
+    }, []); 
+
+    if (!currentUser) {
+        return <div>NO CURRENT USER</div>;
+    }
 
     return (
-        <div className='w-full item-center justify-center bg-blue-800'>
-            <table>
+        <div className='w-full items-center justify-center bg-blue-800 bg-opacity-80 p-5'>
+            <h2 className='flex justify-center items-center text-white font-bold text-xl'>User Details</h2>
+            <table className='flex justify-center items-center'>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Weight</th>
-                        <th>Weight Unit</th>
-                        <th>Height</th>
-                        <th>Height Unit</th>
-                        <th>Gender</th>
+                        <th className='text-white p-2.5'>Name</th>
+                        <th className='text-white p-2.5'>Age</th>
+                        <th className='text-white p-2.5'>Weight</th>
+                        <th className='text-white p-2.5'>Weight Unit</th>
+                        <th className='text-white p-2.5'>Height</th>
+                        <th className='text-white p-2.5'>Height Unit</th>
+                        <th className='text-white p-2.5'>Gender</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((currentUser) => (
-                        <tr key={currentUser._id}>
-                            <td>{currentUser.name}</td>
-                            <td>{currentUser.age}</td>
-                            <td>{currentUser.weight}</td>
-                            <td>{currentUser.weightUnit}</td>
-                            <td>{currentUser.height}</td>
-                            <td>{currentUser.heightUnit}</td>
-                            <td>{currentUser.gender}</td>
-                        </tr>
-                    ))}
+                    <tr key={currentUser._id}>
+                        <td className=''>{currentUser.name}</td>
+                        <td className=''>{currentUser.age}</td>
+                        <td className=''>{currentUser.weight}</td>
+                        <td className=''>{currentUser.weightUnit}</td>
+                        <td className=''>{currentUser.height}</td>
+                        <td className=''>{currentUser.heightUnit}</td>
+                        <td className=''>{currentUser.gender}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

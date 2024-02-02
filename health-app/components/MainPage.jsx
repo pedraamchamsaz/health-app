@@ -23,17 +23,6 @@ const MainPage = (props) => {
         })
     }
 
-    // const removeExercise = (id) => {
-    //     props.client.removeExercise(id).then(() => {
-    //         refreshExercise()
-    //     })
-    // }
-
-    // const removeFood = (id) => {
-    //     props.client.removeFood(id).then(() => {
-    //         refreshFood()
-    //     })
-    // }
 
     const updateExercise = (exercise) => {
         setCurrentExercise(exercise)
@@ -43,46 +32,7 @@ const MainPage = (props) => {
         setCurrentFood(food)
     }
 
-    // useEffect(() => {
-    //     refreshExercise();
-    //     refreshFood();
-    //     refreshUser();
-    // }, []);
 
-
-
-    // const buildExercise = () => {
-    //     return exercise.map((currentExercise) => {
-    //         return (
-    //             <tr key={currentExercise._id} >
-    //                 <td>{currentExercise.exercise}</td>
-    //                 <td>{currentExercise.date}</td>
-    //                 <td>{currentExercise.duration}</td>
-    //                 <td>{currentExercise.calories}</td>
-    //                 <td>
-    //                 <button onClick={() => removeExercise(currentExercise._id)}>Delete</button>
-    //                 <button onClick={() => updateExercise(currentExercise._id)}>Update</button>
-    //                 </td>
-    //             </tr>
-
-    //         )
-    //     })
-    // }
-
-
-    // const buildFood = () => {
-    //     return food.map((currentFood) => {
-    //         <tr key={currentFood._id}>
-    //             <td>{currentFood.food}</td>
-    //             <td>{currentFood.date}</td>
-    //             <td>{currentFood.calories}</td>
-    //             <td>
-    //                 <button onClick={() => removeFood(currentFood._id)}>Delete</button>
-    //                 <button onClick={() => updateFood(currentFood._id)}>Update</button>
-    //             </td>
-    //         </tr>
-    //     })
-    // }
 
 
     const dropdownMenu = () => {
@@ -96,6 +46,8 @@ const MainPage = (props) => {
   return (
     <div>
         <nav>
+        
+        
             <ul className='flex justify-between p-7 bg-blue-200 font-semibold'>
                 <div className='flex gap-20'>
                     <li className='text-xl' id='logo'>Logo</li>
@@ -108,10 +60,12 @@ const MainPage = (props) => {
                         </div>
                     </div>
                 </div>
-                <li id='app-name' className='text-3xl font-bold'>The Health App</li>
+                <li id='app-name' className='text-3xl font-bold'><span className='text-red-500 animate-pulse'>&#10084;</span>The Health App  
+        <span className='text-red-500 animate-pulse'>&#10084;</span></li>
+        
                 <div className='flex gap-20 text-xl'>
                     <li id='username'>Username</li>
-                    <li id='logout' onClick={() => props.loggedOut()}>Log Out</li>
+                    <li className='bg-blue-400 hover:bg-blue-800 rounded-md p-2' id='logout' onClick={() => props.loggedOut()}>Log Out</li>
                 </div>
             </ul>
         </nav>
