@@ -6,6 +6,7 @@ const { User } = require("./models/user");
 const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 const cors = require("cors");
+const port = process.env.PORT || 3001
 
 
 mongoose
